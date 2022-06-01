@@ -2,6 +2,16 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import List from "./components/List";
+import AddToList from "./components/AddToList";
+
+export interface IState {
+  people: {
+    name: string;
+    age: number;
+    url: string;
+    note?: string;
+  }[];
+}
 
 function App() {
   // Typescript infers this as number and useState also is a generic remember and also other hooks are generics
@@ -12,15 +22,6 @@ function App() {
     // Can't do this because number is not string
     // setNumber("10");
   };
-
-  interface IState {
-    people: {
-      name: string;
-      age: number;
-      url: string;
-      note?: string;
-    }[];
-  }
 
   // Don't define large type inside of generic
   const [people, setPeople] = useState<IState["people"]>([
@@ -37,6 +38,7 @@ function App() {
       <h1>People inivited to my party</h1>
       {/* Child also has similar interface */}
       <List people={people} />
+      <AddToList people={people} setPeople={setPeople} />
     </div>
   );
 }
